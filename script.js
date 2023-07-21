@@ -1,5 +1,5 @@
 // script.js
-const PROXY_URL = 'https://cors-anywhere.herokuapp.com/';
+const VULNERABILITIES_API_URL = 'https://vul-server.vercel.app/api/vulnerabilities'; // Update with your server's API URL
 
 document.getElementById('appForm').addEventListener('submit', function (event) {
   event.preventDefault();
@@ -14,28 +14,33 @@ document.getElementById('appForm').addEventListener('submit', function (event) {
 });
 
 function checkVulnerabilities(appName) {
-  // Code to fetch vulnerability information from NVD or other vulnerability databases
-  // Display results in the 'results' div
+  fetch(`${VULNERABILITIES_API_URL}/${encodeURIComponent(appName)}`)
+    .then(response => response.json())
+    .then(data => displayResults(data))
+    .catch(error => console.error('Error fetching vulnerability data:', error));
 }
 
 function checkAvailability(appName) {
-  fetch(`${PROXY_URL}https://downforeveryoneorjustme.com/${encodeURIComponent(appName)}`)
-    .then(response => response.text())
-    .then(html => {
-      const isDown = html.includes('It\'s just you.');
-      displayAvailabilityResult(isDown);
-    })
-    .catch(error => console.error('Error checking availability:', error));
+  // Code to check app availability status
 }
 
 function displayResults(vulnerabilities) {
-  // Code to display vulnerability results
-}
-
-function displayAvailabilityResult(isDown) {
   const resultsDiv = document.getElementById('results');
   resultsDiv.innerHTML = '';
 
-  const statusMessage = isDown ? 'The app is currently down.' : 'The app is up and running!';
-  resultsDiv.textContent = statusMessage;
+  if (vulnerabilities.length === 0) {
+    resultsDiv.textContent = 'No vulnerabilities found for the provided app.';
+    return;
+  }
+
+  vulnerabilities.forEach(vulnerability => {
+    const div = document.createElement('div');
+    div.innerHTML = `
+      <h2>${vulnerability.cve.CVE_data_meta.ID}</h2>
+      <p>Description: ${vulnerability.cve.description.description_data[0].value}</p>
+      <p>Severity: ${vulnerability.impact.baseMetricV2.cvssV2.baseScore}</p>
+      <hr>
+    `;
+    resultsDiv.appendChild(div);
+  });
 }
