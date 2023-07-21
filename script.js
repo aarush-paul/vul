@@ -48,6 +48,19 @@ document.getElementById('appForm').addEventListener('submit', function (event) {
 	};
   }
   
+  function displayReport(reportData) {
+	const reportDiv = document.getElementById('report');
+	reportDiv.innerHTML = `
+	  <h2>${reportData.appName} Report</h2>
+	  <p>Status: ${reportData.status}</p>
+	  <p>Issues: ${reportData.issues}</p>
+	  <p>Outage: ${reportData.outage}</p>
+	  <p>Last Updated: ${reportData.lastUpdated}</p>
+	`;
+  
+	reportDiv.style.display = 'block';
+  }
+  
   function displayMostReportedProblems(mostReportedProblems) {
 	const problemsDiv = document.getElementById('problems');
 	problemsDiv.innerHTML = '<h2>Most Reported Problems</h2>';
@@ -75,6 +88,4 @@ document.getElementById('appForm').addEventListener('submit', function (event) {
 	  },
 	});
   }
-  
-  // Rest of the code remains unchanged
   
