@@ -1,11 +1,16 @@
 function checkStatus() {
     const appURL = document.getElementById('appURL').value;
 
-    fetch(`https://api.downfor.cloud/httpcheck/${appURL}`)
+    fetch(`https://isitup.org/${appURL}.json`)
         .then(response => response.json())
         .then(data => {
-            const status = data.is_down ? "The app is DOWN!" : "The app is UP and running!";
-            document.getElementById('status').textContent = status;
+            if (data.status_code === 1) {
+                document.getElementById('status').textContent = "The app is UP and running!";
+            } else if (data.status_code === 2) {
+                document.getElementById('status').textContent = "The app is DOWN!";
+            } else {
+                document.getElementById('status').textContent = "Error checking app status.";
+            }
         })
         .catch(error => {
             console.error('Error:', error);
