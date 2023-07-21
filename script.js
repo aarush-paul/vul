@@ -1,46 +1,42 @@
 // script.js
-const VULNERABILITIES_API_URL = 'https://vul-server.vercel.app/api/vulnerabilities'; // Update with your server's API URL
-
 document.getElementById('appForm').addEventListener('submit', function (event) {
-  event.preventDefault();
-  const appName = document.getElementById('appName').value;
-  const checkType = document.getElementById('checkType').value;
-
-  if (checkType === 'vulnerabilities') {
-    checkVulnerabilities(appName);
-  } else if (checkType === 'availability') {
-    checkAvailability(appName);
-  }
-});
-
-function checkVulnerabilities(appName) {
-  fetch(`${VULNERABILITIES_API_URL}/${encodeURIComponent(appName)}`)
-    .then(response => response.json())
-    .then(data => displayResults(data))
-    .catch(error => console.error('Error fetching vulnerability data:', error));
-}
-
-function checkAvailability(appName) {
-  // Code to check app availability status
-}
-
-function displayResults(vulnerabilities) {
-  const resultsDiv = document.getElementById('results');
-  resultsDiv.innerHTML = '';
-
-  if (vulnerabilities.length === 0) {
-    resultsDiv.textContent = 'No vulnerabilities found for the provided app.';
-    return;
-  }
-
-  vulnerabilities.forEach(vulnerability => {
-    const div = document.createElement('div');
-    div.innerHTML = `
-      <h2>${vulnerability.cve.CVE_data_meta.ID}</h2>
-      <p>Description: ${vulnerability.cve.description.description_data[0].value}</p>
-      <p>Severity: ${vulnerability.impact.baseMetricV2.cvssV2.baseScore}</p>
-      <hr>
-    `;
-    resultsDiv.appendChild(div);
+	event.preventDefault();
+	const appName = document.getElementById('appName').value;
+	fetchAppReport(appName);
   });
-}
+  
+  function fetchAppReport(appName) {
+	const reportDiv = document.getElementById('report');
+	reportDiv.innerHTML = 'Loading...';
+  
+	// Use DownDetector API or other sources to fetch the report data
+	// In this example, we'll just display a sample report
+	const reportData = getSampleReportData(appName);
+  
+	displayReport(reportData);
+  }
+  
+  function getSampleReportData(appName) {
+	// Replace this with the actual data from the DownDetector API or other sources
+	return {
+	  appName,
+	  status: 'Operational',
+	  issues: 'No known issues',
+	  outage: 'No recent outage reported',
+	  lastUpdated: new Date().toLocaleString()
+	};
+  }
+  
+  function displayReport(reportData) {
+	const reportDiv = document.getElementById('report');
+	reportDiv.innerHTML = `
+	  <h2>${reportData.appName} Report</h2>
+	  <p>Status: ${reportData.status}</p>
+	  <p>Issues: ${reportData.issues}</p>
+	  <p>Outage: ${reportData.outage}</p>
+	  <p>Last Updated: ${reportData.lastUpdated}</p>
+	`;
+  
+	reportDiv.style.display = 'block';
+  }
+  
