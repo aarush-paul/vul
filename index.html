@@ -1,8 +1,10 @@
+<!-- index.html -->
 <!DOCTYPE html>
 <html>
 <head>
   <title>App Report</title>
   <link rel="stylesheet" type="text/css" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
   <div class="container">
@@ -12,6 +14,8 @@
       <button type="submit">Get Report</button>
     </form>
     <div id="report"></div>
+    <div id="problems"></div>
+    <canvas id="outageGraph"></canvas>
   </div>
 
   <script src="script.js"></script>
