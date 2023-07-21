@@ -1,22 +1,20 @@
-<!-- index.html -->
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Service Status Checker</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>App Status Checker</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <h1>Check if a Service is Down</h1>
-  <form id="appForm">
-    <label for="appName">Enter the Service Name:</label>
-    <input type="text" id="appName" required>
-    <button type="submit">Check</button>
-  </form>
-
-  <div id="report" style="display: none;">
-    <h2>Service Status</h2>
-    <p id="status"></p>
-  </div>
-
-  <script src="script.js"></script>
+    <div class="container">
+        <h1>App Status Checker</h1>
+        <div class="form">
+            <input type="text" id="appURL" placeholder="Enter app URL">
+            <button onclick="checkStatus()">Check Status</button>
+        </div>
+        <p id="status"></p>
+    </div>
+    <script src="script.js"></script>
 </body>
 </html>
