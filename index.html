@@ -2,20 +2,19 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>App Report</title>
-  <link rel="stylesheet" type="text/css" href="style.css">
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <title>Service Status Checker</title>
 </head>
 <body>
-  <div class="container">
-    <h1>App Report</h1>
-    <form id="appForm">
-      <input type="text" id="appName" placeholder="Enter app name">
-      <button type="submit">Get Report</button>
-    </form>
-    <div id="report"></div>
-    <div id="problems"></div>
-    <canvas id="outageGraph"></canvas>
+  <h1>Check if a Service is Down</h1>
+  <form id="appForm">
+    <label for="appName">Enter the Service Name:</label>
+    <input type="text" id="appName" required>
+    <button type="submit">Check</button>
+  </form>
+
+  <div id="report" style="display: none;">
+    <h2>Service Status</h2>
+    <p id="status"></p>
   </div>
 
   <script src="script.js"></script>
