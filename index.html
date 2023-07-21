@@ -1,0 +1,22 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html>
+<head>
+  <title>App Issue Checker</title>
+</head>
+<body>
+  <h1>App Issue Checker</h1>
+  <form id="appForm">
+    <input type="text" id="appName" placeholder="Enter app name">
+    <label for="checkType">Select check type:</label>
+    <select id="checkType">
+      <option value="vulnerabilities">Vulnerabilities</option>
+      <option value="availability">Availability Status</option>
+    </select>
+    <button type="submit">Check</button>
+  </form>
+  <div id="results"></div>
+
+  <script src="script.js"></script>
+</body>
+</html>
